@@ -24,6 +24,26 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
     loadNextPage();
   }
 
+  Future<bool> createOrUpdateProduct(Map<String,dynamic> productLike) async {
+    try {
+      final product = await productsRepository.createUpdateProduct(productLike);
+      final isProductInList = state.products.any((p) => p.id == product.id);
+
+      if (!isProductInList) {
+        state = state.copyWith(
+          products: [product, ...state.products]
+        );
+      } else {
+        state = state.copyWith(
+          products: state.products.map((p) => p.id == product.id ? product : p).toList()
+        );
+      }
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future loadNextPage() async {
 
     if (state.isLoading || state.isLastPage) return;

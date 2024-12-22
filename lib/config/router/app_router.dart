@@ -9,7 +9,7 @@ import '../../features/auth/presentation/providers/auth_provider.dart';
 final goRouterProvider = Provider((ref) {
   final goRouterNotifier = ref.read(goRouterNotifierProvider);
   return GoRouter(
-    initialLocation: '/login',
+    initialLocation: '/splash',
     refreshListenable: goRouterNotifier,
     routes: [
       GoRoute(
@@ -55,7 +55,7 @@ final goRouterProvider = Provider((ref) {
       }
 
       if (authStatus == AuthStatus.authenticated) {
-        if (isGoingTo == '/login' || isGoingTo == '/register' || isGoingTo == '/spash') return '/';
+        if (isGoingTo == '/login' || isGoingTo == '/register' || isGoingTo == '/splash') return '/';
       }
 
       return null;
