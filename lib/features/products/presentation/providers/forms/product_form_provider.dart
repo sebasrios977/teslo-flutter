@@ -150,6 +150,12 @@ class ProductFormNotifier extends StateNotifier<ProductFormState> {
       tags: tags,
     );
   }
+
+  void updateProductImage(String path) {
+    state = state.copyWith(
+      images: [...state.images, path],
+    );
+  }
 }
 
 
